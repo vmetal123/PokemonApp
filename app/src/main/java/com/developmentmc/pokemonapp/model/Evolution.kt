@@ -1,6 +1,6 @@
 package com.developmentmc.pokemonapp.model
 
-class Evolution(
-    val name: String,
-    val num: String
-){}
+class Evolution{
+    var name: String? = null
+    var num: String? = null
+}
