@@ -4,6 +4,7 @@ package com.developmentmc.pokemonapp
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,8 +21,10 @@ import retrofit2.Retrofit
 
 class PokemonList : Fragment() {
 
-    internal var compositeDisposable= CompositeDisposable()
+    internal var compositeDisposable = CompositeDisposable()
     internal var iPokemonList: IPokemonList
+
+    internal lateinit var recyclerView: RecyclerView
 
     init {
         val retrofit: Retrofit =  RetrofitClient.instance
@@ -34,10 +37,11 @@ class PokemonList : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val itemView = inflater.inflate(R.layout.fragment_pokemon_list, container, false)
-        pokemon_recyclerview.setHasFixedSize(true)
-        pokemon_recyclerview.layoutManager = GridLayoutManager(activity, 2)
+        recyclerView = itemView.findViewById(R.id.pokemon_recyclerview) as RecyclerView
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = GridLayoutManager(activity, 2)
         val itemDecoration = ItemOffsetDecoration(activity!!, R.dimen.spacing)
-        pokemon_recyclerview.addItemDecoration(itemDecoration)
+        recyclerView.addItemDecoration(itemDecoration)
 
         fetchData()
         return itemView
@@ -51,7 +55,7 @@ class PokemonList : Fragment() {
                 Common.pokemonList = pokemonDex.pokemon!!
                 val adapter = PokemonListAdapter(activity!!, Common.pokemonList)
 
-                pokemon_recyclerview.adapter = adapter
+                recyclerView.adapter = adapter
             })
     }
 
