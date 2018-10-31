@@ -87,7 +87,7 @@ class PokemonDetail : Fragment() {
         recycler_type.adapter = typeAdapter
 
         val weaknessAdapter = PokemonTypeAdapter(activity!!, pokemon.weaknesses!!)
-        recycler_type.adapter = weaknessAdapter
+        recycler_weakness.adapter = weaknessAdapter
     }
 
 
